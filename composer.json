@@ -1,7 +1,7 @@
 {
     "name": "ragephp/jsonrpc-server",
     "keywords": ["json-rpc", "symfony2", "silex"],
-    "description": "",
+    "description": "Ultra-simple JSON-RPC 2.0 server for symfony-based frameworks.",
     "homepage": "https://github.com/ragephp/jsonrpc-server",
     "license": "GNU LGPL",
     "require" : {
