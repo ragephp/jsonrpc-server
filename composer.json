@@ -1,0 +1,15 @@
+{
+    "name": "ragephp/jsonrpc-server",
+    "keywords": ["json-rpc", "symfony2", "silex"],
+    "description": "",
+    "homepage": "https://github.com/ragephp/jsonrpc-server",
+    "license": "GNU LGPL",
+    "require" : {
+        "php": ">=5.4.0"
+    },
+    "autoload" : {
+        "psr-4": {
+            "RageJsonRpc\\": "src/"
+        }
+    }
+}
