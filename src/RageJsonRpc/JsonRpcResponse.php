@@ -39,7 +39,7 @@ class JsonRpcResponse
     {
         $result = [
             'jsonrpc' => '2.0',
-            'id' => $this->getRequest()->getId()
+            'id' => $this->getRequest() ? $this->getRequest()->getId() : null
         ];
         if (!empty($this->error)) {
             $result['error'] = $this->error;
