@@ -2,12 +2,14 @@
 namespace RageJsonRpc;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class JsonRpcResponse
 {
+    protected $stopwatch;
     protected $request;
-    private $error = null;
-    private $result = false;
+    protected $error = null;
+    protected $result = false;
 
     public function setRequest(JsonRpcRequest $request)
     {
@@ -20,6 +22,24 @@ class JsonRpcResponse
     public function getRequest()
     {
         return $this->request;
+    }
+
+    public function setStopwatch(Stopwatch $stopwatch)
+    {
+        $this->stopwatch = $stopwatch;
+    }
+
+    /**
+     * @return Stopwatch
+     */
+    public function getStopwatch()
+    {
+        return $this->stopwatch;
+    }
+
+    public function getDuration()
+    {
+        return $this->getStopwatch()->getEvent('api')->getDuration();
     }
 
     public function setError($message, $code = 0)
@@ -54,6 +74,7 @@ class JsonRpcResponse
         $result = $this->getResponseArray();
         $response = new JsonResponse($result);
         $response->setEncodingOptions($response->getEncodingOptions() | JSON_UNESCAPED_UNICODE);
+        $response->headers->add([ 'X-Api-Time' => $this->getDuration() ]);
         return $response;
     }
 }

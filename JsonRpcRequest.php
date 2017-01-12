@@ -13,16 +13,20 @@ class JsonRpcRequest
     private $method;
     private $params;
 
-    public function setHttpRequest(Request $request)
+    public function __construct(Request $request)
     {
         $this->httpRequest = $request;
-        if (!$request->isMethod('POST')) {
+    }
+
+    public function parseRequest()
+    {
+        if (!$this->httpRequest->isMethod('POST')) {
             throw new JsonRpcParseException('Invalid method, method should be POST');
         }
-        if ($request->getContentType() != 'json') {
+        if ($this->httpRequest->getContentType() != 'json') {
             throw new JsonRpcParseException('Content-Type should by application/json');
         }
-        $this->jsonRequestRaw = $request->getContent();
+        $this->jsonRequestRaw = $this->httpRequest->getContent();
         $this->parseJsonRequest();
     }
 
